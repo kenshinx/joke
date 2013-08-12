@@ -1,22 +1,12 @@
+.row-header {
+	font-size: 4em;
+	background-color: #1C2533;
+	height: 150px;
+	text-align: center;
 
+}
 
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+table.redis-state > tbody > tr > td {
+		width: 60%;
+		height: 35px;
+	}
