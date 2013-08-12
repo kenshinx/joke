@@ -18,6 +18,6 @@ const (
 func main() {
 	fmt.Printf("%s begining running on %s:%d \n", beego.AppName, beego.HttpAddr, beego.HttpPort)
 
-	beego.Router("/", &controllers.DNSController{})
+	beego.Router("/dns", &controllers.DNSController{})
 	beego.Run()
 }

@@ -14,5 +14,5 @@ func (c *DNSController) Prepare() {
 }
 
 func (c *DNSController) Get() {
-	c.TplNames = "index.html"
+	c.TplNames = "dns.html"
 }
