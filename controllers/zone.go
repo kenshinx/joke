@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	auth "github.com/abbot/go-http-auth"
 	"github.com/astaxie/beego"
 )
 
@@ -9,14 +8,9 @@ type ZoneController struct {
 	beego.Controller
 }
 
+// http basic auth
 func (c *ZoneController) Prepare() {
-	if beego.AppConfig.String("basic_auth") != "" {
-		a := auth.NewBasicAuthenticator("joke.sina", Secret)
-		if username := a.CheckAuth(c.Ctx.Request); username == "" {
-			a.RequireAuth(c.Ctx.ResponseWriter, c.Ctx.Request)
-		}
-	}
-
+	CheckAuth(c.Ctx)
 }
 
 func (c *ZoneController) Get() {
