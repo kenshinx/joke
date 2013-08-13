@@ -9,4 +9,6 @@
 table.redis-state > tbody > tr > td {
 		width: 60%;
 		height: 35px;
+		font-family: Georgia,"Times New Roman",Times,serif;
+		font-size: 17px;	 
 	}
