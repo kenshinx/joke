@@ -40,3 +40,7 @@ func (c *DNSController) Get() {
 	c.Layout = "layout.html"
 	c.TplNames = "dns.html"
 }
+
+func (c *DNSController) Post() {
+	fmt.Println("xx")
+}

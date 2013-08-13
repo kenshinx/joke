@@ -1,14 +1,18 @@
-.row-header {
-	font-size: 4em;
-	background-color: #1C2533;
-	height: 150px;
-	text-align: center;
-
+body {
+	background-color: #f2f2f2;
 }
 
 table.redis-state > tbody > tr > td {
 		width: 60%;
-		height: 35px;
+		height: 30px;
 		font-family: Georgia,"Times New Roman",Times,serif;
-		font-size: 17px;	 
+		font-size: 18px;	 
 	}
+
+table.dns-record{
+	font-size: large;
+}
+
+table >tbody#record-list >tr > td.action{
+	width: 20%;
+}
