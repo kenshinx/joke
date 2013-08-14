@@ -53,11 +53,12 @@ func (c *DNSController) Post() {
 		return
 	}
 	if h.Domain == "" || h.IP == "" {
-		c.Ctx.Abort(400, "Both domain and ip can't be empty")
+		c.Ctx.Abort(400, "Both domain and ip needed")
 		return
 	}
 	bindkey := beego.AppConfig.String("bindkey")
-	if ok, err := c.rc.Hset(bindkey, h.Domain, []byte(h.IP)); !ok {
+
+	if _, err := c.rc.Hset(bindkey, h.Domain, []byte(h.IP)); err != nil {
 		c.Ctx.Abort(500, "Save hosts record failed")
 		log.Println(err)
 		return

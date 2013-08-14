@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-
 	$("#create-record").click(function(){
 
 		entry = "\
@@ -22,12 +21,12 @@ $(document).ready(function(){
 })
 
 
-function cancel_edit(entry){
-	$(entry).parent().parent().remove();
+function cancel_edit(btn){
+	$(btn).parent().parent().remove();
 }
 
-function save_edit(entry){
-	p = $(entry).parent().parent();
+function save_edit(btn){
+	p = $(btn).parent().parent();
 	domain = p.find("input[name='domain']").val();
 	ip = p.find("input[name='ip']").val();
 	$.ajax({
@@ -40,7 +39,7 @@ function save_edit(entry){
 					entry +='</td><td id="ip">'
 					entry += ip
 					entry += '</td><td class="action">\
-			                        <button id="edit-record" class="btn btn-info btn-small">\
+			                        <button id="edit-record" class="btn btn-info btn-small" onclick="edit_record(this)">\
 			                            <i class="icon-edit"></i> Edit\
 			                        </button>\
 			                        <button id="del-record" class="btn btn-danger btn-small" onclick="del_record(this)">\
@@ -59,8 +58,8 @@ function save_edit(entry){
 }
 
 
-function del_record(entry){
-	p = $(entry).parent().parent();
+function del_record(btn){
+	p = $(btn).parent().parent();
 	domain = p.find("td#domain").html();
 	ip = p.find("td#ip").html();
 	$.ajax({
@@ -75,6 +74,26 @@ function del_record(entry){
 		}
 
 	})
+}
+
+function edit_record(btn){
+	p = $(btn).parent().parent();
+	domain = p.find("td#domain").html();
+	ip = p.find("td#ip").html();
+
+	entry = "<td><input type='text' name='domain' value='"
+	entry += domain
+	entry += "' disabled></input></td> <td><input type='text' name='ip' value='"
+	entry += ip
+	entry += "'></input></td>\
+				<td class='action'>\
+					<button id='save-record' type='submit' class='btn btn-success btn-small' onclick='save_edit(this)'>\
+					<i class='icon-plus'></i> Save</button>\
+					<button id='cancel-edit' class='btn btn-warning btn-small' onclick='cancel_edit(this)' >\
+					<i class='icon-minus'></i> Remove</button>\
+				</td>\
+	"
+	p.html(entry);
 }
 
 
