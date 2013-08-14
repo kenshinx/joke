@@ -16,3 +16,7 @@ table.hosts-record{
 table >tbody#record-list >tr > td.action{
 	width: 20%;
 }
+
+.redis-label{
+	font-size: 15px;
+}
