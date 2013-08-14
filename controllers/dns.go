@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/hoisie/redis"
+	"log"
 )
 
 func initialRedis() *redis.Client {
@@ -16,31 +16,49 @@ func initialRedis() *redis.Client {
 	return rc
 }
 
+type Host struct {
+	Domain string `form:"domain"`
+	IP     string `form:"ip"`
+}
+
 type DNSController struct {
 	beego.Controller
 	rc *redis.Client
 }
 
 // http basic auth
-// redis connect
+// init redis connect
 func (c *DNSController) Prepare() {
 	CheckAuth(c.Ctx)
 	c.rc = initialRedis()
 }
 
 func (c *DNSController) Get() {
-	var DNSRecords = make(map[string]string)
+	var HostsRecord = make(map[string]string)
 	bindkey := beego.AppConfig.String("bindkey")
-	err := c.rc.Hgetall(bindkey, DNSRecords)
+	err := c.rc.Hgetall(bindkey, HostsRecord)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(DNSRecords)
-	c.Data["DNS"] = DNSRecords
+	c.Data["Hosts"] = HostsRecord
 	c.Layout = "layout.html"
 	c.TplNames = "dns.html"
+	c.Render()
 }
 
 func (c *DNSController) Post() {
-	fmt.Println("xx")
+	h := new(Host)
+	if err := c.ParseForm(h); err != nil {
+		c.Ctx.Abort(400, "Invalid post data")
+	}
+	if h.Domain == "" || h.IP == "" {
+		c.Ctx.Abort(400, "Both domain and iP can't be empty")
+	}
+	bindkey := beego.AppConfig.String("bindkey")
+	if ok, err := c.rc.Hset(bindkey, h.Domain, []byte(h.IP)); !ok {
+		c.Ctx.Abort(500, "Save hosts record failed")
+		log.Println(err)
+	}
+	log.Printf("[%s:%s] insert into redis", h.Domain, h.IP)
+
 }
