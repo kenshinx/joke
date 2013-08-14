@@ -9,7 +9,7 @@ table.redis-state > tbody > tr > td {
 		font-size: 18px;	 
 	}
 
-table.dns-record{
+table.hosts-record{
 	font-size: large;
 }
 
