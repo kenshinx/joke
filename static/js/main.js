@@ -9,8 +9,8 @@ $(document).ready(function(){
 			<td class='action'>\
 				<button id='save-record' type='submit' class='btn btn-success btn-small' onclick='save_edit(this)'>\
 				<i class='icon-plus'></i> Save</button>\
-				<button id='cancel-edit' class='btn btn-warning btn-small' onclick='cancel_edit(this)' >\
-				<i class='icon-minus'></i> Cancel</button>\
+				<button id='remove-edit' class='btn btn-link btn-small' onclick='remove_edit(this)' >\
+				<i class='icon-remove'></i> Remove</button>\
 			</td>\
 		</tr>\
 		"
@@ -21,14 +21,14 @@ $(document).ready(function(){
 })
 
 
-function cancel_edit(btn){
+function remove_edit(btn){
 	$(btn).parent().parent().remove();
 }
 
 function save_edit(btn){
-	p = $(btn).parent().parent();
-	domain = p.find("input[name='domain']").val();
-	ip = p.find("input[name='ip']").val();
+	tr = $(btn).parent().parent();
+	domain = tr.find("input[name='domain']").val();
+	ip = tr.find("input[name='ip']").val();
 	$.ajax({
 		url: "",
 		type: "POST",
@@ -48,7 +48,7 @@ function save_edit(btn){
 			                    </td>\
 			                </tr>'
 					$("#record-list").prepend(entry);
-					p.remove()
+					tr.remove()
 				},
 		error: function(xhr,status,err){
 			alert(xhr.responseText);
@@ -59,15 +59,15 @@ function save_edit(btn){
 
 
 function del_record(btn){
-	p = $(btn).parent().parent();
-	domain = p.find("td#domain").html();
-	ip = p.find("td#ip").html();
+	tr = $(btn).parent().parent();
+	domain = tr.find("td#domain").html();
+	ip = tr.find("td#ip").html();
 	$.ajax({
 		type : "POST",
 		url : "/dns/del",
 		data: {"domain":domain,ip:ip},
 		success : function(){
-			p.remove();
+			tr.remove();
 		},
 		error: function(xhr,status,err){
 			alert(xhr.responseText);
@@ -77,9 +77,11 @@ function del_record(btn){
 }
 
 function edit_record(btn){
-	p = $(btn).parent().parent();
-	domain = p.find("td#domain").html();
-	ip = p.find("td#ip").html();
+	tr = $(btn).parent().parent();
+	domain = tr.find("td#domain").html();
+	ip = tr.find("td#ip").html();
+
+	raw = tr.html()
 
 	entry = "<td><input type='text' name='domain' value='"
 	entry += domain
@@ -89,11 +91,16 @@ function edit_record(btn){
 				<td class='action'>\
 					<button id='save-record' type='submit' class='btn btn-success btn-small' onclick='save_edit(this)'>\
 					<i class='icon-plus'></i> Save</button>\
-					<button id='cancel-edit' class='btn btn-warning btn-small' onclick='cancel_edit(this)' >\
-					<i class='icon-minus'></i> Remove</button>\
+					<button id='cancel-edit' class='btn btn-warning btn-small' onclick='cancel_edit(this,raw)' >\
+					<i class='icon-minus'></i> Cancel</button>\
 				</td>\
 	"
-	p.html(entry);
+	tr.html(entry);
 }
 
+
+function cancel_edit(btn,raw_html){
+	tr = $(btn).parent().parent();
+	tr.html(raw_html);
+}
 
