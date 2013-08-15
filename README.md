@@ -13,16 +13,20 @@ $ cd $GOPATH/src/github.com/kenshinx/joke
 $ bee run jokema	
 ```
 
+### Configuration
+
+`conf/app.conf` 
 
 
 ### Auth
 
-Now support http basic auth
+Support http basic auth  
+Configuration at conf/app.conf
 
 
 ### Screenshot
 
-![joke](https://raw.github.com/kenshinx/joke/screenshot/joke.png)
+![joke](https://raw.github.com/kenshinx/joke/master/screenshot/joke.png)
 
 
 ### Dependence
