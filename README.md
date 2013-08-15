@@ -10,7 +10,8 @@ $ go get github.com/astaxie/bee
 
 $ cd $GOPATH/src/github.com/kenshinx/joke
 
-$ bee run jokema	
+$ bee run joke  
+
 ```
 
 ### Configuration
