@@ -22,7 +22,6 @@ $ bee run joke
 ### Auth
 
 Support http basic auth  
-Configuration at conf/app.conf
 
 
 ### Screenshot

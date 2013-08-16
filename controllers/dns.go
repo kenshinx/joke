@@ -21,14 +21,6 @@ type Host struct {
 	IP     string `form:"ip"`
 }
 
-type IndexController struct {
-	beego.Controller
-}
-
-func (c *IndexController) Get() {
-	c.Redirect("/dns", 302)
-}
-
 type DNSController struct {
 	beego.Controller
 	rc *redis.Client
