@@ -59,20 +59,26 @@ function save_edit(btn){
 
 
 function del_record(btn){
-	tr = $(btn).parent().parent();
-	domain = tr.find("td#domain").html();
-	ip = tr.find("td#ip").html();
-	$.ajax({
-		type : "POST",
-		url : "/dns/del",
-		data: {"domain":domain,ip:ip},
-		success : function(){
-			tr.remove();
-		},
-		error: function(xhr,status,err){
-			alert(xhr.responseText);
+	bootbox.confirm("Confirm Detete?", function(confirm) {
+		if (!confirm) {
+			return;
 		}
 
+		tr = $(btn).parent().parent();
+		domain = tr.find("td#domain").html();
+		ip = tr.find("td#ip").html();
+		$.ajax({
+			type : "POST",
+			url : "/dns/del",
+			data: {"domain":domain,ip:ip},
+			success : function(){
+				tr.remove();
+			},
+			error: function(xhr,status,err){
+				alert(xhr.responseText);
+			}
+
+		})
 	})
 }
 

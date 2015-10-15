@@ -3,7 +3,6 @@ package controllers
 import (
 	"github.com/astaxie/beego"
 	"github.com/hoisie/redis"
-	"log"
 )
 
 func initialRedis() *redis.Client {
@@ -61,7 +60,7 @@ func (c *DNSController) Post() {
 
 	if _, err := c.rc.Hset(bindkey, h.Domain, []byte(h.IP)); err != nil {
 		c.Ctx.Abort(500, "Save hosts record failed")
-		beego.BeeLogger.Error(err)
+		beego.BeeLogger.Error(err.Error())
 		return
 	}
 	beego.BeeLogger.Info("Insert [%s:%s] into redis", h.Domain, h.IP)
@@ -87,7 +86,7 @@ func (c *DNSDelController) Post() {
 	bindkey := beego.AppConfig.String("bindkey")
 	if ok, err := c.rc.Hdel(bindkey, h.Domain); !ok {
 		c.Ctx.Abort(500, "Delete hosts record failed")
-		beego.BeeLogger.Error(err)
+		beego.BeeLogger.Error(err.Error())
 		return
 	}
 	beego.BeeLogger.Info("Delete [%s:%s] from redis", h.Domain, h.IP)
