@@ -16,10 +16,25 @@ const (
 )
 
 func main() {
-	fmt.Printf("%s begining running on %s:%d \n", beego.AppName, beego.HttpAddr, beego.HttpPort)
+	initLogger()
 
 	beego.Router("/", &controllers.IndexController{})
 	beego.Router("/dns", &controllers.DNSController{})
 	beego.Router("/dns/del", &controllers.DNSDelController{})
 	beego.Run()
+}
+
+func initLogger() {
+	console, _ := beego.AppConfig.Bool("stdout")
+	if !console {
+		beego.BeeLogger.DelLogger("console")
+	}
+
+	if beego.AppConfig.String("logfile") != "" {
+		cfg := fmt.Sprintf(`{"filename":"%s"}`, beego.AppConfig.String("logfile"))
+		beego.BeeLogger.SetLogger("file", cfg)
+	}
+
+	beego.BeeLogger.SetLevel(beego.LevelDebug)
+	beego.BeeLogger.EnableFuncCallDepth(false)
 }

@@ -61,10 +61,10 @@ func (c *DNSController) Post() {
 
 	if _, err := c.rc.Hset(bindkey, h.Domain, []byte(h.IP)); err != nil {
 		c.Ctx.Abort(500, "Save hosts record failed")
-		log.Println(err)
+		beego.BeeLogger.Error(err)
 		return
 	}
-	log.Printf("Insert [%s:%s] into redis", h.Domain, h.IP)
+	beego.BeeLogger.Info("Insert [%s:%s] into redis", h.Domain, h.IP)
 
 }
 
@@ -87,9 +87,9 @@ func (c *DNSDelController) Post() {
 	bindkey := beego.AppConfig.String("bindkey")
 	if ok, err := c.rc.Hdel(bindkey, h.Domain); !ok {
 		c.Ctx.Abort(500, "Delete hosts record failed")
-		log.Println(err)
+		beego.BeeLogger.Error(err)
 		return
 	}
-	log.Printf("Delete [%s:%s] from redis", h.Domain, h.IP)
+	beego.BeeLogger.Info("Delete [%s:%s] from redis", h.Domain, h.IP)
 
 }
