@@ -71,14 +71,16 @@ viewspath = "views"
 #[redis]
 redisaddr = "127.0.0.1:6379"
 redisdb = 0
-redispassword = "hello"
+redispassword = ""
 bindkey = "godns:hosts"
 
 
 
 #[log]
-logfile = ""
+stdout = true
+logfile = "logs/joke.log"
 logrorate = true
+
 
 ```
 
