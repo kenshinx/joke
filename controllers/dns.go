@@ -42,8 +42,7 @@ func (c *DNSController) Get() {
 	c.Data["Redis"] = beego.AppConfig.String("redisaddr")
 	c.Data["Hosts"] = HostsRecord
 	c.Layout = "layout.html"
-	c.TplNames = "dns.html"
-	c.Render()
+	c.TplName = "dns.html"
 }
 
 func (c *DNSController) Post() {
@@ -64,6 +63,8 @@ func (c *DNSController) Post() {
 		return
 	}
 	beego.BeeLogger.Info("Insert [%s:%s] into redis", h.Domain, h.IP)
+	c.Layout = "layout.html"
+	c.TplName = "dns.html"
 
 }
 
@@ -90,5 +91,7 @@ func (c *DNSDelController) Post() {
 		return
 	}
 	beego.BeeLogger.Info("Delete [%s:%s] from redis", h.Domain, h.IP)
+	c.Layout = "layout.html"
+	c.TplName = "dns.html"
 
 }
