@@ -1,10 +1,10 @@
-Joke  
+Joke
 =====
-The web cosole for [godns](https://github.com/kenshinx/godns)
+The web console for [godns](https://github.com/kenshinx/godns)
 
 ### Running
 
-#### Developemt
+#### Developement
 
 ```
 $ go get github.com/kenshinx/joke
@@ -12,7 +12,7 @@ $ go get github.com/astaxie/bee
 
 $ cd $GOPATH/src/github.com/kenshinx/joke
 
-$ bee run joke  
+$ bee run joke
 
 ```
 
@@ -26,7 +26,7 @@ Compile first
 ```
 $ go get github.com/kenshinx/joke
 $ cd $GOPATH/src/github.com/kenshinx/joke
-$ go build 
+$ go build
 ```
 
 Deploy strongly suggest supervisord.
@@ -48,8 +48,9 @@ stdout_logfile = /var/log/joke.log
 
 ## Configuration
 
-`conf/app.conf` 
+`conf/app.conf`
 
+Override the default location with the `-c` flag : `joke -c path/to/config`.
 
 ```
 
@@ -87,7 +88,7 @@ logrorate = true
 
 ## Auth
 
-Support http basic auth  
+Support http basic auth
 
 
 ## Screenshot
@@ -99,5 +100,5 @@ Support http basic auth
 
 ### Dependence
 
-* [github.com/astaxie/beego](https://github.com/astaxie/beego)  
+* [github.com/astaxie/beego](https://github.com/astaxie/beego)
 * [github.com/hoisie/redis](https://github.com/hoisie/redis)
