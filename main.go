@@ -1,7 +1,9 @@
 package main
 
 import (
+	"flag"
 	"fmt"
+
 	"github.com/astaxie/beego"
 	"github.com/kenshinx/joke/controllers"
 )
@@ -16,12 +18,24 @@ const (
 )
 
 func main() {
+	initConfig()
 	initLogger()
 
 	beego.Router("/", &controllers.IndexController{})
 	beego.Router("/dns", &controllers.DNSController{})
 	beego.Router("/dns/del", &controllers.DNSDelController{})
 	beego.Run()
+}
+
+func initConfig() {
+	var configFile string
+
+	flag.StringVar(&configFile, "c", "./conf/app.conf", "Path to the application configuration file")
+	flag.Parse()
+
+	if err := beego.LoadAppConfig("ini", configFile); err != nil {
+		panic(err)
+	}
 }
 
 func initLogger() {
